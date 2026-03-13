@@ -1,4 +1,5 @@
 services:
+
   # Backend API Service
   - type: web
     name: medicare-backend
@@ -11,25 +12,17 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
-      - key: PORT
-        value: 10000
     healthCheckPath: /health
-    disk:
-      name: backend-data
-      mountPath: /opt/render/project/src
-      sizeGB: 1
 
-  # Frontend Web Service (Static Site)
-- type: static_site
-  name: medicare-frontend
-  env: static
-  region: oregon
-  plan: starter
-  rootDir: MAINN/frontend
-  buildCommand: npm install && npm run build
-  staticPublishPath: ./dist
-  envVars:
-    - key: NODE_VERSION
-      value: 18.x
-    - key: VITE_API_URL
-      sync: false
+  # Frontend Static Website
+  - type: static_site
+    name: medicare-frontend
+    env: static
+    region: oregon
+    plan: starter
+    rootDir: MAINN/frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: 18
