@@ -13,16 +13,3 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
     healthCheckPath: /health
-
-  # Frontend Static Website
-  - type: static_site
-    name: medicare-frontend
-    env: static
-    region: oregon
-    plan: starter
-    rootDir: MAINN/frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    envVars:
-      - key: NODE_VERSION
-        value: 18
