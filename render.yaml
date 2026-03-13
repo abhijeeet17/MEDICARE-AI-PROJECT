@@ -1,11 +1,9 @@
 services:
-
-  # Backend API Service
   - type: web
     name: medicare-backend
     env: python
     region: oregon
-    plan: starter
+    plan: free
     rootDir: MAINN/backend
     buildCommand: pip install -r requirements.txt
     startCommand: python -m uvicorn main:app --host 0.0.0.0 --port $PORT
