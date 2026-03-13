@@ -1,7 +1,10 @@
-from fastapi import FastAPI
+from flask import Flask, render_template
 
-app = FastAPI()
+app = Flask(__name__)
 
-@app.get("/")
+@app.route("/")
 def home():
-    return {"message": "Medicare AI backend is running"}
+    return "Medicare AI Running"
+
+if __name__ == "__main__":
+    app.run()
