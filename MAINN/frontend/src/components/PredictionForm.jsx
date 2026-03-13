@@ -24,10 +24,13 @@ const PredictionForm = ({ modelType, onBack }) => {
     const [showNotebook, setShowNotebook] = useState(false);
     const [isRetrying, setIsRetrying] = useState(false);
 
+    // Get API base URL from environment variable or default to localhost for development
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
     const fetchInfo = async () => {
         try {
             setError(null);
-            const endpoint = modelType === 'heart' ? 'http://localhost:8000/info/heart' : 'http://localhost:8000/info/diabetes';
+            const endpoint = modelType === 'heart' ? `${API_BASE_URL}/info/heart` : `${API_BASE_URL}/info/diabetes`;
             const res = await axios.get(endpoint);
             setMetaData(res.data);
             return true;
@@ -98,7 +101,7 @@ const PredictionForm = ({ modelType, onBack }) => {
         setError(null);
         setResult(null);
 
-        const endpoint = modelType === 'heart' ? 'http://localhost:8000/predict/heart' : 'http://localhost:8000/predict/diabetes';
+        const endpoint = modelType === 'heart' ? `${API_BASE_URL}/predict/heart` : `${API_BASE_URL}/predict/diabetes`;
 
         try {
             await new Promise(r => setTimeout(r, 2000)); // Add artificial delay for "Building Connection" effect
@@ -121,7 +124,7 @@ const PredictionForm = ({ modelType, onBack }) => {
     };
 
     const isHeart = modelType === 'heart';
-    const notebookUrl = isHeart ? 'http://localhost:8000/notebooks/heart_disease.html' : 'http://localhost:8000/notebooks/diabetes.html';
+    const notebookUrl = isHeart ? `${API_BASE_URL}/notebooks/heart_disease.html` : `${API_BASE_URL}/notebooks/diabetes.html`;
 
     return (
         <motion.div
