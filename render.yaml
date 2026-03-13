@@ -5,8 +5,9 @@ services:
     env: python
     region: oregon
     plan: starter
+    rootDir: MAINN/backend
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    startCommand: python -m uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -18,14 +19,15 @@ services:
       mountPath: /opt/render/project/src
       sizeGB: 1
 
-  # Frontend Web Service
-  - type: web
+  # Frontend Web Service (Static Site)
+  - type: static
     name: medicare-frontend
     env: static
     region: oregon
     plan: starter
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
+    rootDir: MAINN/frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
     envVars:
       - key: NODE_VERSION
         value: 18.x
