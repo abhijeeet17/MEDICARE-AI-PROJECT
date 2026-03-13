@@ -20,26 +20,16 @@ services:
       sizeGB: 1
 
   # Frontend Web Service (Static Site)
-  - type: static
-    name: medicare-frontend
-    env: static
-    region: oregon
-    plan: starter
-    rootDir: MAINN/frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    envVars:
-      - key: NODE_VERSION
-        value: 18.x
-      - key: VITE_API_URL
-        sync: false
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: SAMEORIGIN
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
-      - path: /*
-        name: X-XSS-Protection
-        value: 1; mode=block
+- type: static_site
+  name: medicare-frontend
+  env: static
+  region: oregon
+  plan: starter
+  rootDir: MAINN/frontend
+  buildCommand: npm install && npm run build
+  staticPublishPath: ./dist
+  envVars:
+    - key: NODE_VERSION
+      value: 18.x
+    - key: VITE_API_URL
+      sync: false
